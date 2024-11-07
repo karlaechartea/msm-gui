@@ -1,5 +1,24 @@
 class MoviesController < ApplicationController
   
+  def update
+    m_id = params.fetch("the_id")
+
+    matching_records = Movie.where({ :id => m_id })
+    the_movie = matching_records.at(0)
+
+    the_movie.title = params.fetch("the_title")
+    the_movie.year = params.fetch("the_year")
+    the_movie.duration = params.fetch("the_duration")
+    the_movie.description = params.fetch("the_description")
+    the_movie.image = params.fetch("the_image")
+    the_movie.director_id = params.fetch("the_director_id")
+
+    the_movie.save
+
+    redirect_to("/movies/#{the_movie.id}")
+
+  end
+  
   def create
     #params looks like this Parameters: {"the_title"=>"4", "the_year"=>"3", "the_duration"=>"2", "the_description"=>"g", "the_image"=>"4", "the_director_id"=>"3"}
 
